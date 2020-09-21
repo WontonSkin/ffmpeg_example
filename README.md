@@ -1,1 +1,3 @@
-ffmpeg example
+
+[目录说明]
+build_0904_x64 -> ffmpeg4.2.1 源码X64编译结果文件，包括bin、include、lib等等
