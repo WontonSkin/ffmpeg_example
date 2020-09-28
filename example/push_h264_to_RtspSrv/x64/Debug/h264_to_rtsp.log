@@ -1,0 +1,9 @@
+﻿  main.cpp
+d:\msys64\home\swt\github_ffmpeg_example\build_0904_x64\include\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\msys64\home\swt\github_ffmpeg_example\example\push_h264_to_rtspsrv\src\main.cpp(69): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\push_h264_to_rtspsrv\src\main.cpp(122): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\push_h264_to_rtspsrv\src\main.cpp(145): warning C4244: “初始化”: 从“double”转换到“int64_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\push_h264_to_rtspsrv\src\main.cpp(148): warning C4244: “=”: 从“double”转换到“int64_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\push_h264_to_rtspsrv\src\main.cpp(150): warning C4244: “=”: 从“double”转换到“int64_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\push_h264_to_rtspsrv\src\main.cpp(158): warning C4244: “参数”: 从“int64_t”转换到“unsigned int”，可能丢失数据
+  h264_to_rtsp.vcxproj -> D:\msys64\home\swt\github_ffmpeg_example\example\push_h264_to_RtspSrv\x64\Debug\h264_to_rtsp.exe
