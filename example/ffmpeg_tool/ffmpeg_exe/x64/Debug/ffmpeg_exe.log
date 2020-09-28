@@ -1,0 +1,124 @@
+﻿  cmdutils.c
+d:\msys64\home\swt\ffmpeg-4.2.1\ffmpeg-4.2.1-0905\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(210): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(221): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(326): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(328): warning C4305: “函数”: 从“__int64”到“double”截断
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(328): warning C4244: “=”: 从“double”转换到“int64_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(332): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(569): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(572): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(576): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(584): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(611): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(1533): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(1601): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(1640): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(2120): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(2123): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(2127): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\cmdutils.c(2151): warning C4018: “<”: 有符号/无符号不匹配
+  ffmpeg.c
+d:\msys64\home\swt\ffmpeg-4.2.1\ffmpeg-4.2.1-0905\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\msys64\home\swt\ffmpeg-4.2.1\ffmpeg-4.2.1-0905\libavutil\bswap.h(75): warning C4244: “函数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(349): warning C4267: “函数”: 从“size_t”转换到“unsigned int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(525): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(488): warning C4244: “初始化”: 从“int64_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1085): warning C4244: “函数”: 从“double”转换到“float”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1086): warning C4244: “函数”: 从“double”转换到“float”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1128): warning C4244: “=”: 从“int64_t”转换到“double”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1136): warning C4244: “函数”: 从“double”转换到“float”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1148): warning C4244: “函数”: 从“double”转换到“float”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1150): warning C4244: “函数”: 从“double”转换到“float”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1168): warning C4244: “=”: 从“int64_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1190): warning C4018: “>”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1376): warning C4244: “=”: 从“int64_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1412): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1482): warning C4244: “=”: 从“int64_t”转换到“double”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1551): warning C4018: “>=”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1552): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1608): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1675): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1730): warning C4244: “=”: 从“uint64_t”转换到“double”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1733): warning C4244: “=”: 从“int64_t”转换到“double”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(1760): warning C4244: “=”: 从“int64_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(2498): warning C4244: “=”: 从“int64_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(2499): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(2578): warning C4244: “=”: 从“double”转换到“int64_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(2975): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3000): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3194): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3237): warning C4018: “>”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3247): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3317): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3627): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3601): warning C4305: “初始化”: 从“__int64”到“double”截断
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3718): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3722): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3846): warning C4018: “>=”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(3850): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(4381): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(4433): warning C4244: “*=”: 从“double”转换到“int64_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg.c(4435): warning C4244: “*=”: 从“double”转换到“int64_t”，可能丢失数据
+  ffmpeg_filter.c
+d:\msys64\home\swt\ffmpeg-4.2.1\ffmpeg-4.2.1-0905\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_filter.c(189): warning C4133: “=”: 从“int *”到“const AVSampleFormat *”的类型不兼容
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_filter.c(279): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_filter.c(653): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_filter.c(657): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_filter.c(716): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_filter.c(1062): warning C4018: “<”: 有符号/无符号不匹配
+  ffmpeg_hw.c
+d:\msys64\home\swt\ffmpeg-4.2.1\ffmpeg-4.2.1-0905\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_hw.c(212): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_hw.c(213): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_hw.c(214): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_hw.c(276): warning C4090: “函数”: 不同的“const”限定符
+  ffmpeg_opt.c
+d:\msys64\home\swt\ffmpeg-4.2.1\ffmpeg-4.2.1-0905\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\msys64\home\swt\ffmpeg-4.2.1\ffmpeg-4.2.1-0905\libavutil\bswap.h(75): warning C4244: “函数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(86): warning C4305: “初始化”: 从“double”到“float”截断
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(109): warning C4305: “初始化”: 从“double”到“float”截断
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(154): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(162): warning C4305: “=”: 从“double”到“float”截断
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(219): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(207): warning C4305: “初始化”: 从“__int64”到“double”截断
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(388): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(619): warning C4018: “>=”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(620): warning C4018: “>=”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(624): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(638): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(655): warning C4244: “初始化”: 从“double”转换到“int64_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(714): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(725): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(770): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1054): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1063): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1117): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1171): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1229): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1232): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1258): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1366): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1536): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(1767): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2005): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2007): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2023): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2380): warning C4244: “函数”: 从“int64_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2386): warning C4244: “=”: 从“int64_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2424): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2427): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2566): warning C4244: “函数”: 从“float”转换到“int64_t”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2641): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2649): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2685): warning C4090: “函数”: 不同的“const”限定符
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2707): warning C4018: “<”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2730): warning C4018: “>=”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2737): warning C4018: “>=”: 有符号/无符号不匹配
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(2828): warning C4305: “=”: 从“double”到“float”截断
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(3077): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(3115): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  正在生成代码...
+d:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\ffmpeg_exe\src\ffmpeg_opt.c(511): warning C4715: “opt_init_hw_device”: 不是所有的控件路径都返回值
+  ffmpeg_exe.vcxproj -> D:\msys64\home\swt\github_ffmpeg_example\example\ffmpeg_tool\x64\Debug\ffmpeg_exe.exe
