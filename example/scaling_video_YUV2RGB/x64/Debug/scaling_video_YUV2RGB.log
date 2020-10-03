@@ -1,0 +1,7 @@
+﻿D:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 中间目录(x64\Debug\)包含从另一个项目(scaling_video.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  scaling_video_YUV2RGB.cpp
+d:\msys64\home\swt\github_ffmpeg_example\build_0904_x64\include\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\msys64\home\swt\github_ffmpeg_example\example\scaling_video_yuv2rgb\src\scaling_video_yuv2rgb.cpp(51): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\scaling_video_yuv2rgb\src\scaling_video_yuv2rgb.cpp(63): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\scaling_video_yuv2rgb\src\scaling_video_yuv2rgb.cpp(69): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  scaling_video_YUV2RGB.vcxproj -> D:\msys64\home\swt\github_ffmpeg_example\example\scaling_video_YUV2RGB\x64\Debug\scaling_video_YUV2RGB.exe

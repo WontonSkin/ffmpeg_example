@@ -20,7 +20,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\scaling_video_vs.cpp">
+    <ClCompile Include="src\scaling_video_YUV2RGB.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
