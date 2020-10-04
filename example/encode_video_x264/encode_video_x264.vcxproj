@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\encode_video.cpp" />
+    <ClCompile Include="src\encode_video_vs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
