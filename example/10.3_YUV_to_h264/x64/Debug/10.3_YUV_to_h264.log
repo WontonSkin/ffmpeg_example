@@ -1,0 +1,14 @@
+﻿  yuv_to_h264_vs.cpp
+d:\msys64\home\swt\github_ffmpeg_example\build_0904_x64\include\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(26): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(38): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(44): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(60): warning C4477: “printf”: 格式字符串“%3ld”需要类型“long”的参数，但可变参数 1 拥有了类型“int64_t”
+  d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(60): note: 请考虑在格式字符串中使用“%lld”
+  d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(60): note: 请考虑在格式字符串中使用“%Id”
+  d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(60): note: 请考虑在格式字符串中使用“%I64d”
+d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(77): warning C4477: “printf”: 格式字符串“%3ld”需要类型“long”的参数，但可变参数 1 拥有了类型“int64_t”
+  d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(77): note: 请考虑在格式字符串中使用“%lld”
+  d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(77): note: 请考虑在格式字符串中使用“%Id”
+  d:\msys64\home\swt\github_ffmpeg_example\example\10.3_yuv_to_h264\src\yuv_to_h264_vs.cpp(77): note: 请考虑在格式字符串中使用“%I64d”
+  10.3_YUV_to_h264.vcxproj -> D:\msys64\home\swt\github_ffmpeg_example\example\10.3_YUV_to_h264\x64\Debug\10.3_YUV_to_h264.exe
