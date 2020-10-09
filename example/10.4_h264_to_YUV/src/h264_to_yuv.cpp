@@ -72,17 +72,36 @@ static void decode1(AVCodecContext *dec_ctx, AVFrame *frame, AVPacket *pkt, FILE
         printf("saving frame %3d\n", dec_ctx->frame_number);
         fflush(stdout);
 
-        /* the picture is allocated by the decoder. no need to
-           free it */
-        //snprintf(buf, sizeof(buf), "%s-%d", filename, dec_ctx->frame_number);
-        //pgm_save(frame->data[0], frame->linesize[0], frame->width, frame->height, buf);
+		//Ylen = frame->width * frame->height;   //352*288 // 384 -- 192 -- 192
+		//Ulen = Ylen / 4;
+		//Vlen = Ulen;
+		//fwrite(frame->data[0], 1, Ylen, f);
+		//fwrite(frame->data[1], 1, Ulen, f);
+		//fwrite(frame->data[2], 1, Vlen, f);
 
-		Ylen = frame->width * frame->height;
-		Ulen = Ylen / 4;
-		Vlen = Ulen;
-		fwrite(frame->data[0], 1, Ylen, f);
-		fwrite(frame->data[1], 1, Ulen, f);
-		fwrite(frame->data[2], 1, Vlen, f);
+		int i = 0;
+		uint8_t *pData = NULL;
+
+		//write Y
+		pData = frame->data[0];
+		for (i = 0; i < frame->height; i++) {
+			fwrite(pData, 1, frame->width, f);    //padding需要跳过，frame->width为实际宽度，frame->linesize[0]为跨度
+			pData += frame->linesize[0];          //padding需要跳过，padding = frame->linesize[0] - frame->width
+		}
+
+		//write U
+		pData = frame->data[1];
+		for (i = 0; i < frame->height/2; i++) {
+			fwrite(pData, 1, frame->width/2, f);
+			pData += frame->linesize[1];
+		}
+
+		//write V
+		pData = frame->data[2];
+		for (i = 0; i < frame->height/2; i++) {
+			fwrite(pData, 1, frame->width/2, f);
+			pData += frame->linesize[2];
+		}
     }
 }
 

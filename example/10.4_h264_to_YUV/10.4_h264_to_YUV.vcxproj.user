@@ -3,6 +3,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerEnvironment>PATH=$(SolutionDir)..\..\build_0904_x64\bin;%PATH%</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>in.h264  out.yuv420p_1920X1080.yuv</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>1920x1080.h264   out.yuv</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
