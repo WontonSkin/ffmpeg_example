@@ -1,8 +1,0 @@
-﻿  h264_to_yuv.cpp
-d:\msys64\home\swt\github_ffmpeg_example\build_0904_x64\include\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-d:\msys64\home\swt\github_ffmpeg_example\example\10.4_h264_to_yuv\src\h264_to_yuv.cpp(55): warning C4101: “Ulen”: 未引用的局部变量
-d:\msys64\home\swt\github_ffmpeg_example\example\10.4_h264_to_yuv\src\h264_to_yuv.cpp(53): warning C4101: “buf”: 未引用的局部变量
-d:\msys64\home\swt\github_ffmpeg_example\example\10.4_h264_to_yuv\src\h264_to_yuv.cpp(55): warning C4101: “Vlen”: 未引用的局部变量
-d:\msys64\home\swt\github_ffmpeg_example\example\10.4_h264_to_yuv\src\h264_to_yuv.cpp(55): warning C4101: “Ylen”: 未引用的局部变量
-d:\msys64\home\swt\github_ffmpeg_example\example\10.4_h264_to_yuv\src\h264_to_yuv.cpp(193): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-  10.4_h264_to_YUV.vcxproj -> D:\msys64\home\swt\github_ffmpeg_example\example\10.4_h264_to_YUV\x64\Debug\10.4_h264_to_YUV.exe
