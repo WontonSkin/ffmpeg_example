@@ -11,3 +11,19 @@
 调试参数：
 将本地1080P的h264裸数据进行缩放
 -i 1920x1080.h264 -s 352x288 352x288.h264
+
+[3]
+调试参数：
+对h264解码为YUV数据
+-i 352x288.h264 -vcodec rawvideo out.yuv
+-i 352x288.h264 -vcodec rawvideo -an out.yuv
+其中 -an 表示不处理音频
+其中 -vn 表示不处理视频
+
+[4]
+调试参数：
+对h264解码为YUV数据
+-i 352x288.h264 out.rtp
+
+
+
