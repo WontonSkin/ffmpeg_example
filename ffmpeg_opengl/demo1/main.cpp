@@ -5,9 +5,12 @@ using namespace std;
 
 int main()
 {
-	cout << "hi" << endl;
-	int ret = demo_demuxing("demo.ts", "demo.h264", "demo.aac");
-	return 0;
+    cout << "hi" << endl;
+    int ret = 0;
+    ret = demo_demuxing("resources/demo.ts", "demo.h264", "demo.aac");
+    ret = doRendering();
+    
+    return 0;
 }
 
 
