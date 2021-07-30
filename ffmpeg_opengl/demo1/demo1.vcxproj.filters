@@ -21,19 +21,31 @@
     <ClCompile Include="src\demo_demuxing.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\demo_decodeVideo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\demo_frame2yuv.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\opengl\textures_exercise4.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo__avDate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo_decoding.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo_rendering.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\demo_decoding.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\demo_avDate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="include\demo_pch.h">
-      <Filter>源文件</Filter>
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\demo_rendering.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

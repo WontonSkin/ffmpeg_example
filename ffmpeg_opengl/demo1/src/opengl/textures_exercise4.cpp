@@ -17,6 +17,32 @@ const unsigned int SCR_HEIGHT = 600;
 // stores how much we're seeing of either texture
 float mixValue = 0.2f;
 
+int doGenerateMipmap(int texture1, int width, int height, unsigned char *data)
+{
+
+    if ((0 == width) || (0 == height) || (NULL == data)) {
+        std::cout << "illegal parameter" << std::endl;
+        return -1;
+    }
+
+    
+    // texture 1
+    // ---------
+    glBindTexture(GL_TEXTURE_2D, texture1);
+    // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    
+    // load image, create texture and generate mipmaps
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    
+    return 0;
+}
+
 int doRendering()
 {
     // glfw: initialize and configure
@@ -152,7 +178,8 @@ int doRendering()
     // or set it via the texture class
     ourShader.setInt("texture2", 1);
 
-
+    int cnt = 0;
+    
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -160,6 +187,9 @@ int doRendering()
         // input
         // -----
         processInput(window);
+
+        
+        //查看帧队列是否有数据，有则渲染
 
         // render
         // ------
@@ -169,8 +199,8 @@ int doRendering()
         // bind textures on corresponding texture units
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2);
+        //glActiveTexture(GL_TEXTURE1);
+        //glBindTexture(GL_TEXTURE_2D, texture2);
 
         // set the texture mix value in the shader
         ourShader.setFloat("mixValue", mixValue);

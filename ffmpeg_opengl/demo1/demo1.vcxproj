@@ -74,7 +74,7 @@
     <LibraryPath>..\0_ffmpeg_build\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\0_ffmpeg_build\include;..\1_opengl_build\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\0_ffmpeg_build\include;..\1_opengl_build\include;include;$(IncludePath)</IncludePath>
     <LibraryPath>..\0_ffmpeg_build\lib;..\1_opengl_build\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -135,13 +135,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\demo_decodeVideo.cpp" />
+    <ClCompile Include="src\demo_decoding.cpp" />
     <ClCompile Include="src\demo_demuxing.cpp" />
-    <ClCompile Include="src\demo_frame2yuv.cpp" />
+    <ClCompile Include="src\demo_rendering.cpp" />
+    <ClCompile Include="src\demo__avDate.cpp" />
     <ClCompile Include="src\opengl\textures_exercise4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\demo_avDate.h" />
+    <ClInclude Include="include\demo_decoding.h" />
     <ClInclude Include="include\demo_pch.h" />
+    <ClInclude Include="include\demo_rendering.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\opengl\4.5.texture.fs" />
