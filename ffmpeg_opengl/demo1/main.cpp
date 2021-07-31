@@ -6,11 +6,16 @@
 #include "demo_decoding.h"
 #include "demo_rendering.h" 
 
+#include <Windows.h>
 
 int main()
 {
-  
+    int ret = 0;
+    std::string url("resources/demo.ts");
 
+    //清除残留文件
+    DeleteFile("raw.h264");  //include Windows.h
+    DeleteFile("raw.yuv");
 
     //资源申请
     DEMO::AvDataQueue* pDateQue = NULL;
@@ -18,10 +23,22 @@ int main()
     DEMO::RenderObj* pRender = NULL;
     try {
         pDateQue = new DEMO::AvDataQueue;
-        pDecoder = new DEMO::DecodeObj(pDateQue);
+        pDecoder = new DEMO::DecodeObj(pDateQue, url);
         pRender = new DEMO::RenderObj(pDateQue);
     } catch(...) {
         std::cout << "new (AvDataQueue/DecodeObj/RenderObj) fail.\n";
+    }
+
+    //初始化资源
+    ret = pDecoder->init();
+    if (ret != 0) {
+        std::cout << "pDecoder->init fail.\n";
+        return -1;
+    }
+    ret = pRender->init();
+    if (ret != 0) {
+        std::cout << "pRender->init fail.\n";
+        return -1;
     }
 
     //wait do stuff...

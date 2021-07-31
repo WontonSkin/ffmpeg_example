@@ -21,9 +21,6 @@
     <ClCompile Include="src\demo_demuxing.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\opengl\textures_exercise4.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\demo__avDate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

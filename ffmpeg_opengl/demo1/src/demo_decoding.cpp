@@ -8,12 +8,70 @@
 #include "demo_decoding.h"
 
 
-
-
 namespace DEMO
 {
 
-DecodeObj::DecodeObj(AvDataQueue* pDateQue) : m_stop(false), m_pDateQue(pDateQue)
+void saveH26X(AVStream *av, AVPacket *pkt)
+{   
+    std::string filename;
+    if (AV_CODEC_ID_H264 == av->codecpar->codec_id) {
+        filename = std::string("raw.h264");
+    } else if (AV_CODEC_ID_HEVC == av->codecpar->codec_id) {
+        filename = std::string("raw.h265");
+    } else {
+        printf("unknow video codec_id:%d .\n", av->codecpar->codec_id);
+        return;
+    }
+
+    FILE *video_dst_file = fopen(filename.c_str(), "ab+");
+    if (video_dst_file) {
+        fwrite(pkt->data, 1, pkt->size, video_dst_file);
+        fclose(video_dst_file);
+    } else {
+        printf("fopen h26X fail.\n");
+    }
+    
+    return;
+}
+
+void saveYuv(AVFrame *frame)
+{
+    FILE *f = fopen("raw.yuv", "ab+");
+    if (NULL == f) {
+        printf("fopen yuv fail.\n");
+        return;
+    }
+
+    int i = 0;
+    uint8_t *pData = NULL;
+    
+    //write Y
+    pData = frame->data[0];
+    for (i = 0; i < frame->height; i++) {
+        fwrite(pData, 1, frame->width, f);    //padding需要跳过，frame->width为实际宽度，frame->linesize[0]为跨度
+        pData += frame->linesize[0];          //padding需要跳过，padding = frame->linesize[0] - frame->width
+    }
+
+    //write U
+    pData = frame->data[1];
+    for (i = 0; i < frame->height/2; i++) {
+        fwrite(pData, 1, frame->width/2, f);
+        pData += frame->linesize[1];
+    }
+
+    //write V
+    pData = frame->data[2];
+    for (i = 0; i < frame->height/2; i++) {
+        fwrite(pData, 1, frame->width/2, f);
+        pData += frame->linesize[2];
+    }
+    
+    fclose(f);
+    
+    return;
+}
+
+DecodeObj::DecodeObj(AvDataQueue* pDateQue, std::string url) : m_stop(false), m_url(url), m_pDateQue(pDateQue)
 {    
     m_pFormatCtx = NULL;
     m_pVideoStream = NULL; 
@@ -50,8 +108,7 @@ int DecodeObj::init()
 {
     int ret = 0;
     
-    const char * src_filename = NULL; //todo
-    ret = initDemuxing(src_filename);
+    ret = initDemuxing(m_url.c_str());
     if (ret != 0) {
         printf("initDemuxing fail.\n");
         return -1;
@@ -107,13 +164,13 @@ void DecodeObj::decodingThread()
     return;
 }
 
-
-
-
 int DecodeObj::decoding(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame)
 {
     char buf[1024];
     int ret;
+
+    //调试保存视频帧
+    saveH26X(m_pVideoStream, pkt);
 
     ret = avcodec_send_packet(dec_ctx, pkt);
     if (ret < 0) {
@@ -123,21 +180,28 @@ int DecodeObj::decoding(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame)
 
     while (ret >= 0) {
         ret = avcodec_receive_frame(dec_ctx, frame);
-        if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
-            printf("Error during decoding,err:%d (EAGAIN or AVERROR_EOF)\n", ret);
-            return -2;
+        if (ret == AVERROR(EAGAIN)) {
+            printf("during decoding, EAGAIN:%d.\n", ret);
+            return ret;
+        } else if (ret == AVERROR_EOF) {
+            printf("during decoding, AVERROR_EOF:%d.\n", ret);
+            return ret;
         } else if (ret < 0) {
-            printf("Error during decoding\n");
-            return -1;
+            printf("during decoding, unknow Error:%d.\n", ret);
+            return ret;
         }
-        printf("saving frame %3d\n", dec_ctx->frame_number);
-        fflush(stdout);
-
-        int i = 0;
-        uint8_t *pData = NULL;
+        printf("frame %3d\n", dec_ctx->frame_number);
+        //fflush(stdout);
 
         //todo write yuv to queue
 
+        //调试保存YUV
+        saveYuv(frame);
+
+        #if 0
+        int i = 0;
+        uint8_t *pData = NULL;
+        
         //write Y
         pData = frame->data[0];
         for (i = 0; i < frame->height; i++) {
@@ -158,6 +222,7 @@ int DecodeObj::decoding(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame)
             //fwrite(pData, 1, frame->width/2, f);
             pData += frame->linesize[2];
         }
+        #endif
     }
 }
 
@@ -206,16 +271,15 @@ int DecodeObj::initDemuxing(const char *src_filename)
         printf("Could not find audio or video stream in the input, aborting\n");
         return -1;
     }
-    if (m_pVideoStream)
-        printf("Demuxing video from file '%s' \n", src_filename);
-    if (m_pAudioStream)
-        printf("Demuxing audio from file '%s' \n", src_filename);
+    if (m_pVideoStream) printf("Demuxing video from file '%s' \n", src_filename);
+    if (m_pAudioStream) printf("Demuxing audio from file '%s' \n", src_filename);
 
     // AVPacket 已压缩的数据
     m_pPkt = av_packet_alloc();
-    if (!m_pPkt)
+    if (!m_pPkt) {
         printf("av_packet_alloc fail.\n");
         return -1;
+    }
 
     // AVFrame 未压缩的数据
     m_pFrame = av_frame_alloc();
@@ -224,7 +288,7 @@ int DecodeObj::initDemuxing(const char *src_filename)
         return -1;
     }
 
-    return 0;  
+    return 0;
 }
 
 int DecodeObj::uninitDemuxing()

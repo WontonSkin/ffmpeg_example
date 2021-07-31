@@ -139,7 +139,6 @@
     <ClCompile Include="src\demo_demuxing.cpp" />
     <ClCompile Include="src\demo_rendering.cpp" />
     <ClCompile Include="src\demo__avDate.cpp" />
-    <ClCompile Include="src\opengl\textures_exercise4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\demo_avDate.h" />

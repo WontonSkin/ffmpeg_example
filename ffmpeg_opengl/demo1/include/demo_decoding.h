@@ -38,7 +38,7 @@ void decodingThread(int x);
 
 class DecodeObj {
 public:
-    DecodeObj(AvDataQueue* pDateQue);
+    DecodeObj(AvDataQueue* pDateQue, std::string url);
     virtual ~DecodeObj();
     int init();
 
@@ -55,6 +55,7 @@ private:
 
 private:
     bool m_stop;
+    std::string m_url;
     AvDataQueue* m_pDateQue;
     std::shared_ptr<std::thread> m_decodingThr;
 
