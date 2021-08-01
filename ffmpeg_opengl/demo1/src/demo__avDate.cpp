@@ -105,18 +105,26 @@ unsigned int AvDataQueue::getQueueSize()
     return m_Que.size();
 }
 
-int AvDataQueue::putData()
+int AvDataQueue::putData(AV_FRAME_DATA_PTR& pData)
 {
     std::unique_lock<std::mutex> lck(m_Mtx);
+    m_Que.push(pData);
     return 0;
 }
 
-int AvDataQueue::getData()
+AV_FRAME_DATA_PTR AvDataQueue::getData()
 {
+    AV_FRAME_DATA_PTR pData;
+        
     std::unique_lock<std::mutex> lck(m_Mtx);
-    //pData = m_Que.front();
-    m_Que.pop();
-    return 0;
+    if (m_Que.empty()) {
+        
+    } else {
+        AV_FRAME_DATA_PTR pData = m_Que.front();
+        m_Que.pop();
+    }
+
+    return pData;
 }
 
 
