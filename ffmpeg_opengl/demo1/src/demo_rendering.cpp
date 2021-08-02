@@ -82,237 +82,6 @@ int doGenerateMipmap(int texture1, int width, int height, unsigned char *data)
     return 0;
 }
 
-
-//unsigned char* rgba;
-//unsigned char* misc;
-//unsigned char* segment;
-//rgba    = new unsigned char[t_width*t_height*4];
-//segment = new unsigned char[t_width*t_height*4];
-
-// reset alpha value to 255
-//memset( rgba, 255, sizeof(unsigned char)*t_width*t_height*4 );
-
-// used for NV12, NV21, UYVY, RGB32, RGB24, RGB16
-//misc = new unsigned char[width*height*4];
-
-#if 0
-void yuv2rgb(color_format m_color, int width, int height)
-{
-
-    int j, i;
-    int c, d, e;
-
-    int stride_uv;
-
-    int r, g, b;
-    
-    unsigned char* line = rgba;
-    unsigned char* cur;
-
-    short* rgb16;
-
-    if( m_color == PACKED_YUV444) {
-        for( j = 0 ; j < height ; j++ ){
-            cur = line;
-            for( i = 0 ; i < width ; i++ ){
-                c = misc[(j*width+i)*3    ] - 16;
-                d = misc[(j*width+i)*3 + 1] - 128;
-                e = misc[(j*width+i)*3 + 2] - 128;
-
-                (*cur) = clip(( 298 * c           + 409 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c - 100 * d - 208 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c + 516 * d           + 128) >> 8);cur+=2;
-            }
-            line += t_width<<2;
-        }
-    }
-    else if( m_color == YUV444 ){
-        for( j = 0 ; j < height ; j++ ){
-            cur = line;
-            for( i = 0 ; i < width ; i++ ){
-                c = y[j*width+i] - 16;
-                d = u[j*width+i] - 128;
-                e = v[j*width+i] - 128;
-
-                (*cur) = clip(( 298 * c           + 409 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c - 100 * d - 208 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c + 516 * d           + 128) >> 8);cur+=2;
-            }
-            line += t_width<<2;
-        }
-    }
-    else if( m_color == YUV422 ){
-        stride_uv = (width+1)>>1;
-
-        for( j = 0 ; j < height ; j++ ){
-            cur = line;
-            for( i = 0 ; i < width ; i++ ){
-                c = y[j*width+i] - 16;
-                d = u[j*stride_uv+(i>>1)] - 128;
-                e = v[j*stride_uv+(i>>1)] - 128;
-
-                (*cur) = clip(( 298 * c           + 409 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c - 100 * d - 208 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c + 516 * d           + 128) >> 8);cur+=2;
-            }
-            line += t_width<<2;
-        }
-    }
-
-    else if( m_color == UYVY ){
-        unsigned char* t = misc;
-        for( j = 0 ; j < height ; j++ ){
-            cur = line;
-            for( i = 0 ; i < width ; i+=2 ){
-                c = *(t+1) - 16;    // Y1
-                d = *(t+0) - 128;   // U
-                e = *(t+2) - 128;   // V
-
-                (*cur) = clip(( 298 * c           + 409 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c - 100 * d - 208 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c + 516 * d           + 128) >> 8);cur+=2;
-
-                c = *(t+3) - 16;    // Y2
-                (*cur) = clip(( 298 * c           + 409 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c - 100 * d - 208 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c + 516 * d           + 128) >> 8);cur+=2;
-
-                t += 4;
-            }
-            line += t_width<<2;
-        }
-    }
-
-    else if( m_color == YUYV ){
-        unsigned char* t = misc;
-        for( j = 0 ; j < height ; j++ ){
-            cur = line;
-            for( i = 0 ; i < width ; i+=2 ){
-                c = *(t+0) - 16;    // Y1
-                d = *(t+1) - 128;   // U
-                e = *(t+3) - 128;   // V
-
-                (*cur) = clip(( 298 * c           + 409 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c - 100 * d - 208 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c + 516 * d           + 128) >> 8);cur+=2;
-
-                c = *(t+2) - 16;    // Y2
-                (*cur) = clip(( 298 * c           + 409 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c - 100 * d - 208 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c + 516 * d           + 128) >> 8);cur+=2;
-
-                t += 4;
-            }
-            line += t_width<<2;
-        }
-    }
-
-    else if( m_color == YUV420 || m_color == NV12 || m_color == NV21 ){
-        stride_uv = (width+1)>>1;
-
-        for( j = 0 ; j < height ; j++ ){
-            cur = line;
-            for( i = 0 ; i < width ; i++ ){
-                c = y[j*width+i] - 16;
-
-                if (m_color == YUV420)
-                {
-                    d = u[(j>>1)*stride_uv+(i>>1)] - 128;
-                    e = v[(j>>1)*stride_uv+(i>>1)] - 128;
-                }
-                else if (m_color == NV12)
-                {
-                    d = misc[(j>>1)*width+(i>>1<<1)  ] - 128;
-                    e = misc[(j>>1)*width+(i>>1<<1)+1] - 128;
-                }
-                else // if (m_color == NV21)
-                {
-                    d = misc[(j>>1)*width+(i>>1<<1)+1] - 128;
-                    e = misc[(j>>1)*width+(i>>1<<1)  ] - 128;
-                }
-
-                (*cur) = clip(( 298 * c           + 409 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c - 100 * d - 208 * e + 128) >> 8);cur++;
-                (*cur) = clip(( 298 * c + 516 * d           + 128) >> 8);cur+=2;
-            }
-            line += t_width<<2;
-        }
-    }
-    
-    else if( m_color == YUV420_10LE || m_color == YUV420_10BE ){
-        for( j = 0 ; j < height ; j++ ){
-            cur = line;
-            for( i = 0 ; i < width ; i++ ){
-
-                if (m_color == YUV420_10BE)
-                {
-                    c = (y[j*width*2 +  i*2] << 8) | y[j*width*2 +  i*2 + 1];
-                    d = (u[(j>>1)*width+(i>>1<<1)  ] << 8) | u[(j>>1)*width+(i>>1<<1)+1];
-                    e = (v[(j>>1)*width+(i>>1<<1)  ] << 8) | v[(j>>1)*width+(i>>1<<1)+1];
-                }
-                else
-                {
-                    c = (y[j*width*2 +  i*2 + 1] << 8)  | y[j*width*2 +  i*2];
-                    d = (u[(j>>1)*width+(i>>1<<1)+1] << 8)  | u[(j>>1)*width+(i>>1<<1)  ];
-                    e = (v[(j>>1)*width+(i>>1<<1)+1] << 8)  | v[(j>>1)*width+(i>>1<<1)  ];
-                }
-
-                c = c - (16<<2);
-                d = d - (128<<2);
-                e = e - (128<<2);
-
-                (*cur) = clip(( 298 * c           + 409 * e + (128<<2)) >> 10);cur++;
-                (*cur) = clip(( 298 * c - 100 * d - 208 * e + (128<<2)) >> 10);cur++;
-                (*cur) = clip(( 298 * c + 516 * d           + (128<<2)) >> 10);cur+=2;
-            }
-            line += t_width<<2;
-        }
-    }
-
-    else if (m_color == RGB32 || m_color == RGB24 || m_color == RGB16) {
-        for( j = 0 ; j < height ; j++ ){
-            cur = line;
-            for( i = 0 ; i < width ; i++ ){
-                if (m_color == RGB32) {
-                    r = misc[(j*width+i)*4  ];
-                    g = misc[(j*width+i)*4+1];
-                    b = misc[(j*width+i)*4+2];
-                }
-                else if (m_color == RGB24) {
-                    r = misc[(j*width+i)*3  ];
-                    g = misc[(j*width+i)*3+1];
-                    b = misc[(j*width+i)*3+2];
-                }
-                else {
-                    rgb16 = (short*)misc;
-
-                    r = ((rgb16[j*width+i] >> 11)&0x1F) << 3;
-                    g = ((rgb16[j*width+i] >> 5 )&0x3F) << 2;
-                    b = ((rgb16[j*width+i]      )&0x1F) << 3;
-                }
-
-                (*cur) = r; cur++;
-                (*cur) = g; cur++;
-                (*cur) = b; cur+=2;
-            }
-            line += t_width<<2;
-        }    
-    }
-
-    else { // YYY
-        for( j = 0 ; j < height ; j++ ){
-            cur = line;
-            for( i = 0 ; i < width ; i++ ){
-                (*cur) = y[j*width+i]; cur++;
-                (*cur) = y[j*width+i]; cur++;
-                (*cur) = y[j*width+i]; cur+=2;
-            }
-            line += t_width<<2;
-        }    
-    }
-}
-#endif
-
 int RenderObj::doRendering()
 {
     // glfw: initialize and configure
@@ -390,7 +159,7 @@ int RenderObj::doRendering()
 
     // load and create a texture 
     // -------------------------
-    unsigned int texture1, texture2;
+    unsigned int texture1;
     // texture 1
     // ---------
     glGenTextures(1, &texture1);
@@ -416,37 +185,14 @@ int RenderObj::doRendering()
         std::cout << "Failed to load texture" << std::endl;
     }
     stbi_image_free(data);
-    // texture 2
-    // ---------
-    glGenTextures(1, &texture2);
-    glBindTexture(GL_TEXTURE_2D, texture2);
-    // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // load image, create texture and generate mipmaps
-	data = stbi_load("resources/awesomeface.png", &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        // note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    stbi_image_free(data);
+
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
     ourShader.use(); // don't forget to activate/use the shader before setting uniforms!
-    // either set it manually like so:
-    glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);
-    // or set it via the texture class
-    ourShader.setInt("texture2", 1);
+    // either set it manually or set it via the texture class
+    //glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);
+    ourShader.setInt("texture1", 0);
 
     int cnt = 0;
     
@@ -460,11 +206,20 @@ int RenderObj::doRendering()
 
         
         //查看帧队列是否有数据，有则渲染
-        AV_FRAME_DATA_PTR pData = m_pDateQue->getData();
-        if (pData.get() == nullptr) {
+        if (m_pDateQue->bEmptyQueue()) {
             std::this_thread::sleep_for(std::chrono::milliseconds(40));
             continue;
-        }        
+        }
+		AV_FRAME_DATA_PTR pData = m_pDateQue->getData();
+        AvDataFormat av = pData->getAvDataFormat();
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, av.vf.width, av.vf.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData->getData());
+        glGenerateMipmap(GL_TEXTURE_2D);
+        //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, av.vf.width, av.vf.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData->getData());
+        //glGenerateMipmap(GL_TEXTURE_2D);
+        //std::this_thread::sleep_for(std::chrono::milliseconds(40));
+        std::cout << "W x H:" << av.vf.width <<" x " << av.vf.height << ", len:\n" << pData->getDataLen();
+        printf("<==> W:%d x H:%d, len:%d.\n", av.vf.width, av.vf.height, pData->getDataLen());
+        
 
         // render
         // ------

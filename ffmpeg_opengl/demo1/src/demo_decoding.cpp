@@ -122,11 +122,12 @@ AV_FRAME_DATA_PTR yuv2rgb(enum AVPixelFormat pix_fmt, AVFrame *frame)
             
             line += width << 2;
             y += frame->linesize[0];
-            u += frame->linesize[1];
-            v += frame->linesize[2];
+            if ((j%2) == 1) {
+                u += frame->linesize[1];
+                v += frame->linesize[2];
+            }
         }
     }
-
 
     //申请内存
     AvDataFormat dataInfo;
@@ -137,6 +138,7 @@ AV_FRAME_DATA_PTR yuv2rgb(enum AVPixelFormat pix_fmt, AVFrame *frame)
     dataInfo.frameLen = width*height*4;
     dataInfo.frameBuf = rgba;
     AV_FRAME_DATA_PTR p = std::make_shared<AvFrameData>(dataInfo);
+    delete[] rgba;
     
     return p;
 }
@@ -272,6 +274,10 @@ int DecodeObj::decoding(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame)
 
         //write yuv to queue
         m_pDateQue->putData(pData);
+        AvDataFormat av = pData->getAvDataFormat();
+        printf("## W:%d x H:%d, len:%d.\n", av.vf.width, av.vf.height, pData->getDataLen());
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        
     }
 
     return 0;
