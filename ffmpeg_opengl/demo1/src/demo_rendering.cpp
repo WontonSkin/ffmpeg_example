@@ -83,20 +83,19 @@ int doGenerateMipmap(int texture1, int width, int height, unsigned char *data)
 }
 
 
-unsigned char* rgba;
-unsigned char* misc;
-unsigned char* segment;
-
-rgba    = new unsigned char[t_width*t_height*4];
-segment = new unsigned char[t_width*t_height*4];
+//unsigned char* rgba;
+//unsigned char* misc;
+//unsigned char* segment;
+//rgba    = new unsigned char[t_width*t_height*4];
+//segment = new unsigned char[t_width*t_height*4];
 
 // reset alpha value to 255
-memset( rgba, 255, sizeof(unsigned char)*t_width*t_height*4 );
+//memset( rgba, 255, sizeof(unsigned char)*t_width*t_height*4 );
 
 // used for NV12, NV21, UYVY, RGB32, RGB24, RGB16
-misc = new unsigned char[width*height*4];
+//misc = new unsigned char[width*height*4];
 
-
+#if 0
 void yuv2rgb(color_format m_color, int width, int height)
 {
 
@@ -312,7 +311,7 @@ void yuv2rgb(color_format m_color, int width, int height)
         }    
     }
 }
-
+#endif
 
 int RenderObj::doRendering()
 {
@@ -465,10 +464,7 @@ int RenderObj::doRendering()
         if (pData.get() == nullptr) {
             std::this_thread::sleep_for(std::chrono::milliseconds(40));
             continue;
-        }
-
-        //yuv->rgb
-        
+        }        
 
         // render
         // ------

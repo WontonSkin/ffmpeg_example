@@ -19,12 +19,20 @@ typedef enum {
     AV_CODEC_AAC,
 }AvCodecID;
 
+//帧编码类型
+typedef enum {
+    AV_CODEC_NO_TYPE = 0,
+    AV_CODEC_VIDEO = 1,
+    AV_CODEC_AUDIO,
+}AvCodecType;
+
 //视频帧信息
 typedef struct{
     bool isKey;
+    unsigned int width;
+    unsigned int height;
     unsigned short framerate; 
 }VideoframeInfo;
-
 
 //音频帧信息
 typedef struct{
@@ -36,11 +44,11 @@ typedef struct{
 
 //数据格式
 typedef struct {
-    AvCodecID codec;      //帧编码类型
+    AvCodecType type;   //帧类型
     VideoframeInfo vf;  //视频帧信息
     AudioframeInfo af;  //音频帧信息
     unsigned int frameLen;      //帧长度
-    char *frameBuf;             //帧内容
+    unsigned char *frameBuf;    //帧内容
 } AvDataFormat;
 
 class AvFrameData {
@@ -77,8 +85,8 @@ public:
     bool bEmptyQueue();
     int clearQueue();
     unsigned int getQueueSize();
-    int putData();
-    int getData();
+    int putData(AV_FRAME_DATA_PTR& pData);
+    AV_FRAME_DATA_PTR getData();
 
 private:
     std::mutex m_Mtx;

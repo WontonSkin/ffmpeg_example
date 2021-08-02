@@ -22,6 +22,7 @@ private:
     RenderObj& operator = (RenderObj& obj);
 
     void renderingThread();
+	int doRendering();
 
 private:
     bool m_stop;
