@@ -124,10 +124,14 @@ int RenderObj::doRendering()
     // ------------------------------------------------------------------
     float vertices[] = {
         // positions          // colors           // texture coords
-         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
+        // 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+        // 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
+        //-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
+        //-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
+         1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // top right
+         1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f, // bottom right
+        -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f, // bottom left
+        -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f  // top left 
     };
     unsigned int indices[] = {
         0, 1, 3, // first triangle
@@ -212,10 +216,10 @@ int RenderObj::doRendering()
         }
         printf("<==>.......\n");
         AV_FRAME_DATA_PTR pData = m_pDateQue->getData();
-		if (pData.get() == NULL) {
-			printf("<==>++++\n");
-			continue;
-		}
+        if (pData.get() == NULL) {
+            printf("some unknow err.\n");
+            continue;
+        }
         AvDataFormat *pInfo = pData->getPtr();
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, pInfo->vf.width, pInfo->vf.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pInfo->frameBuf);
         glGenerateMipmap(GL_TEXTURE_2D);

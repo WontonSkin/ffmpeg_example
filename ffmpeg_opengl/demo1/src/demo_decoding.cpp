@@ -277,8 +277,8 @@ int DecodeObj::decoding(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame)
 
         //write yuv to queue
         m_pDateQue->putData(pData);
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        
+        //std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(40));
     }
 
     return 0;
