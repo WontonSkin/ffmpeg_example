@@ -16,14 +16,14 @@ typedef enum {
     AV_NO_CODEC = 0,
     AV_CODEC_H264 = 1,
     AV_CODEC_H265,
-    AV_CODEC_AAC,
+    AV_CODEC_AAC
 }AvCodecID;
 
 //帧编码类型
 typedef enum {
     AV_CODEC_NO_TYPE = 0,
     AV_CODEC_VIDEO = 1,
-    AV_CODEC_AUDIO,
+    AV_CODEC_AUDIO
 }AvCodecType;
 
 //视频帧信息
@@ -53,21 +53,19 @@ typedef struct {
 
 class AvFrameData {
 public:
-    AvFrameData();
-    AvFrameData(AvFrameData& data);
-    AvFrameData(AvDataFormat& avformat);
+    AvFrameData(unsigned int frameLen);
+
+    AvFrameData(AvFrameData& other);
+        
     virtual ~AvFrameData();
 
-    AvFrameData& operator = (AvFrameData& data); 
-
-    AvDataFormat& getAvDataFormat() {    return m_avDataFormat;}
-    unsigned char* getData() {return m_pdata;}
-    unsigned int getDataLen() {return m_len;}
+    AvDataFormat* getPtr();
 
 private:
-    AvDataFormat m_avDataFormat;
-    unsigned char* m_pdata;
-    unsigned int m_len;
+    AvFrameData& operator = (AvFrameData& data); 
+
+private:
+    AvDataFormat* m_pAvDataFormat;
 };
 
 typedef std::shared_ptr<AvFrameData> AV_FRAME_DATA_PTR;

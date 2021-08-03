@@ -90,6 +90,8 @@ AV_FRAME_DATA_PTR yuv2rgb(enum AVPixelFormat pix_fmt, AVFrame *frame)
 
     //printf("pix_fmt is :%d.\n", pix_fmt);  // AV_PIX_FMT_YUV420P
 
+    
+
     int j, i;
     int c, d, e;
     
@@ -99,7 +101,17 @@ AV_FRAME_DATA_PTR yuv2rgb(enum AVPixelFormat pix_fmt, AVFrame *frame)
     unsigned char* u = frame->data[1];
     unsigned char* v = frame->data[2];
 
-    unsigned char* rgba = new unsigned char[width*height*4];
+
+    //申请内存
+    unsigned int yuvSize = width*height*4;
+    AV_FRAME_DATA_PTR p = std::make_shared<AvFrameData>(yuvSize);
+    AvDataFormat* pInfo = p->getPtr();
+    pInfo->type = AV_CODEC_VIDEO;
+    pInfo->vf.width = width;
+    pInfo->vf.height = height;
+    pInfo->frameLen = yuvSize;
+    
+    unsigned char* rgba = pInfo->frameBuf;
     unsigned char* line = rgba;
     
     if (AV_PIX_FMT_YUV420P == pix_fmt) {
@@ -128,17 +140,6 @@ AV_FRAME_DATA_PTR yuv2rgb(enum AVPixelFormat pix_fmt, AVFrame *frame)
             }
         }
     }
-
-    //申请内存
-    AvDataFormat dataInfo;
-    memset(&dataInfo, 0, sizeof(dataInfo));
-    dataInfo.type = AV_CODEC_VIDEO;
-    dataInfo.vf.width = width;
-    dataInfo.vf.height = height;
-    dataInfo.frameLen = width*height*4;
-    dataInfo.frameBuf = rgba;
-    AV_FRAME_DATA_PTR p = std::make_shared<AvFrameData>(dataInfo);
-    delete[] rgba;
     
     return p;
 }
@@ -271,11 +272,11 @@ int DecodeObj::decoding(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame)
 
         //yuv -> rgb 
         AV_FRAME_DATA_PTR pData = yuv2rgb(dec_ctx->pix_fmt, frame);
+        AvDataFormat* pInfo = pData->getPtr();
+        printf("## W:%d x H:%d, len:%d.\n", pInfo->vf.width, pInfo->vf.height, pInfo->frameLen);
 
         //write yuv to queue
         m_pDateQue->putData(pData);
-        AvDataFormat av = pData->getAvDataFormat();
-        printf("## W:%d x H:%d, len:%d.\n", av.vf.width, av.vf.height, pData->getDataLen());
         std::this_thread::sleep_for(std::chrono::seconds(1));
         
     }

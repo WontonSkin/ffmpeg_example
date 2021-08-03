@@ -5,73 +5,93 @@ namespace DEMO
 {
 
 
-AvFrameData::AvFrameData() 
+AvFrameData::AvFrameData(unsigned int frameLen)
 {
-    memset(&m_avDataFormat, 0, sizeof(m_avDataFormat));
-    m_pdata = NULL;
-    m_len = 0;
+    m_pAvDataFormat = new AvDataFormat;
+    memset(m_pAvDataFormat, 0, sizeof(*m_pAvDataFormat));
+    if (frameLen != 0) {
+        m_pAvDataFormat->frameBuf = new unsigned char[frameLen];
+    } else {
+        m_pAvDataFormat->frameBuf = NULL;
+    }
 }
 
-AvFrameData::AvFrameData(AvFrameData& data) 
+
+AvFrameData::AvFrameData(AvFrameData& other) 
 {
-    m_avDataFormat = data.getAvDataFormat();
-    m_len = data.getDataLen();
+    AvDataFormat* ptr = other.getPtr();
+    if (NULL == ptr) {
+        m_pAvDataFormat = NULL;
+    } else {
     
-    if ((m_len != 0) && (data.getData() != NULL)) {
-        m_pdata = new unsigned char[m_len];
-        memcpy(m_pdata, data.getData(), m_len);
-    } else {
-        m_len = 0;
-        m_pdata = NULL;
-    }
-}
-
-AvFrameData::AvFrameData(AvDataFormat& avformat) : m_avDataFormat(avformat) 
-{
-    if ((avformat.frameBuf != NULL) && (avformat.frameLen != 0)) {
-        m_pdata = new unsigned char[avformat.frameLen];
-        memcpy(m_pdata, avformat.frameBuf, avformat.frameLen);
-        m_len = avformat.frameLen;
-
-        //实际数据已拷贝，故清一下
-        m_avDataFormat.frameBuf = NULL;
-        m_avDataFormat.frameLen = 0;
-    } else {
-        memset(&m_avDataFormat, 0, sizeof(m_avDataFormat));
-        m_len = 0;
-        m_pdata = NULL;
-    }
-}
-
-AvFrameData& AvFrameData::operator = (AvFrameData& data) 
-{
-    if (this != &data) {
-        
-        if (0 == data.getDataLen() || NULL == data.getData()) {
-            memset(&m_avDataFormat, 0, sizeof(m_avDataFormat));
-            m_pdata = NULL;
-            m_len = 0;
-            
+        m_pAvDataFormat = new AvDataFormat;
+        memcpy(m_pAvDataFormat, ptr, sizeof(*ptr));
+        if (ptr->frameLen) {
+            m_pAvDataFormat->frameBuf = new unsigned char[ptr->frameLen];
+            memcpy(m_pAvDataFormat->frameBuf, ptr->frameBuf, ptr->frameLen);
         } else {
-    
-            if (m_len < data.getDataLen()) {
-                delete[] m_pdata;
-                m_pdata = new unsigned char[data.getDataLen()];
+            m_pAvDataFormat->frameBuf = NULL;
+        }
+        
+    }
+}
+
+/**
+AvFrameData& AvFrameData::operator = (AvFrameData& other) 
+{
+    if (this != &other) {
+
+        AvDataFormat* ptr = other.getPtr();
+        if (NULL == ptr) {
+            if (m_pAvDataFormat) {
+                if (m_pAvDataFormat->frameBuf) {
+                    delete[] m_pAvDataFormat->frameBuf;
+                }
+                delete m_pAvDataFormat;
+                //m_pAvDataFormat = NULL;
             }
-            
-            memcpy(m_pdata, data.getData(), data.getDataLen());
-            m_avDataFormat = data.getAvDataFormat();
-            m_len = data.getDataLen();
+            m_pAvDataFormat = NULL;
+        } else {
+        
+            if (m_pAvDataFormat) {
+                
+                m_pAvDataFormat->type = ptr->type;
+                m_pAvDataFormat->vf = ptr->vf;
+                m_pAvDataFormat->af = ptr->af;
+                if (m_pAvDataFormat->frameLen < ptr->frameLen) {
+                    delete[] m_pAvDataFormat->frameBuf;
+                    m_pAvDataFormat->frameBuf = new unsigned char[ptr->frameLen];
+                }
+                memcpy(m_pAvDataFormat->frameBuf, ptr->frameBuf, ptr->frameLen);
+                m_pAvDataFormat->frameLen = ptr->frameLen;
+                    
+            } else {
+                m_pAvDataFormat = new AvDataFormat;
+                memcpy(m_pAvDataFormat, ptr, sizeof(*ptr));
+                m_pAvDataFormat->frameBuf = new unsigned char[ptr->frameLen];
+                memcpy(m_pAvDataFormat->frameBuf, ptr->frameBuf, ptr->frameLen);
+            }
         }
     }
     return *this;
 }
+**/
 
 AvFrameData::~AvFrameData() {
-    if (m_pdata && (m_len > 0)) {
-        delete[] m_pdata;
+    if (m_pAvDataFormat) {
+        if (m_pAvDataFormat->frameBuf) {
+            delete[] m_pAvDataFormat->frameBuf;
+        }
+        delete m_pAvDataFormat;
+        m_pAvDataFormat = NULL;
     }
 }
+
+AvDataFormat* AvFrameData::getPtr() 
+{    
+    return m_pAvDataFormat;
+}
+
 
 
 AvDataQueue::AvDataQueue()
@@ -81,7 +101,7 @@ AvDataQueue::AvDataQueue()
 
 AvDataQueue::~AvDataQueue()
 {
-
+	clearQueue();
 }
 
 bool AvDataQueue::bEmptyQueue()
@@ -120,7 +140,7 @@ AV_FRAME_DATA_PTR AvDataQueue::getData()
     if (m_Que.empty()) {
         
     } else {
-        AV_FRAME_DATA_PTR pData = m_Que.front();
+        pData = m_Que.front();
         m_Que.pop();
     }
 

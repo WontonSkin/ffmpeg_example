@@ -210,15 +210,19 @@ int RenderObj::doRendering()
             std::this_thread::sleep_for(std::chrono::milliseconds(40));
             continue;
         }
-		AV_FRAME_DATA_PTR pData = m_pDateQue->getData();
-        AvDataFormat av = pData->getAvDataFormat();
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, av.vf.width, av.vf.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData->getData());
+        printf("<==>.......\n");
+        AV_FRAME_DATA_PTR pData = m_pDateQue->getData();
+		if (pData.get() == NULL) {
+			printf("<==>++++\n");
+			continue;
+		}
+        AvDataFormat *pInfo = pData->getPtr();
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, pInfo->vf.width, pInfo->vf.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pInfo->frameBuf);
         glGenerateMipmap(GL_TEXTURE_2D);
         //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, av.vf.width, av.vf.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData->getData());
         //glGenerateMipmap(GL_TEXTURE_2D);
         //std::this_thread::sleep_for(std::chrono::milliseconds(40));
-        std::cout << "W x H:" << av.vf.width <<" x " << av.vf.height << ", len:\n" << pData->getDataLen();
-        printf("<==> W:%d x H:%d, len:%d.\n", av.vf.width, av.vf.height, pData->getDataLen());
+        printf("<==> W:%d x H:%d, len:%d.\n", pInfo->vf.width, pInfo->vf.height, pInfo->frameLen);
         
 
         // render
