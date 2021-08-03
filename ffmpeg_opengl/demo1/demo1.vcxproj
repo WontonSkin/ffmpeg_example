@@ -74,8 +74,8 @@
     <LibraryPath>..\0_ffmpeg_build\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\0_ffmpeg_build\include;..\1_opengl_build\include;include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\0_ffmpeg_build\lib;..\1_opengl_build\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\0_ffmpeg_build\include;..\1_opengl_build\include;..\2_poco_build\include;include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\0_ffmpeg_build\lib;..\1_opengl_build\lib;..\2_poco_build\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -100,7 +100,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;glfw3.lib;opengl32.lib;assimp.lib;freetype.lib;irrKlang.lib;GLAD.lib;STB_IMAGE.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;glfw3.lib;opengl32.lib;assimp.lib;freetype.lib;irrKlang.lib;GLAD.lib;STB_IMAGE.lib;PocoFoundationd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,13 +136,14 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\demo_decoding.cpp" />
-    <ClCompile Include="src\demo_demuxing.cpp" />
     <ClCompile Include="src\demo_rendering.cpp" />
     <ClCompile Include="src\demo__avDate.cpp" />
+    <ClCompile Include="src\demo__log.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\demo_avDate.h" />
     <ClInclude Include="include\demo_decoding.h" />
+    <ClInclude Include="include\demo_log.h" />
     <ClInclude Include="include\demo_pch.h" />
     <ClInclude Include="include\demo_rendering.h" />
   </ItemGroup>

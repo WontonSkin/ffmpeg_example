@@ -1,9 +1,10 @@
 #include <string.h>
 #include "demo_avDate.h"
+#include "demo_log.h"
+
 
 namespace DEMO
 {
-
 
 AvFrameData::AvFrameData(unsigned int frameLen)
 {

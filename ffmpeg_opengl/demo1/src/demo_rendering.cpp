@@ -9,6 +9,7 @@
 #include <learnopengl/shader_s.h>
 
 #include "demo_rendering.h"
+#include "demo_log.h"
 
 enum color_format { YUV420_10BE, YUV420_10LE, YUV444, YUV422, YUV420, UYVY, YUYV, YYY, PACKED_YUV444, NV12, NV21, RGB32, RGB24, RGB16 };
 #define clip(var) ((var>=255)?255:(var<=0)?0:var)

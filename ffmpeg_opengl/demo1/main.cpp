@@ -5,11 +5,16 @@
 #include "demo_avDate.h"
 #include "demo_decoding.h"
 #include "demo_rendering.h" 
+#include "demo_log.h"
 
 #include <Windows.h>
 
+
 int main()
 {
+    //DEMO::initlog();
+    DEMO::openLogFile();
+    
     int ret = 0;
     std::string url("resources/demo.ts");
 
@@ -42,7 +47,7 @@ int main()
     }
 
     //wait do stuff...
-    while(1) {
+    while (1) {
         //std::this_thread::sleep_for(std::chrono::milliseconds(10));
         std::this_thread::sleep_for(std::chrono::seconds(10));
     }
@@ -57,6 +62,8 @@ int main()
     if (pDateQue != NULL) {
         delete pDateQue;
     }
+
+    DEMO::closeLogfile();
 
     return 0;
 }

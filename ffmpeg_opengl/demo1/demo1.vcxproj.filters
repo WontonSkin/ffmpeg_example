@@ -18,9 +18,6 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\demo_demuxing.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\demo__avDate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -28,6 +25,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\demo_rendering.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo__log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,6 +42,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\demo_rendering.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\demo_log.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

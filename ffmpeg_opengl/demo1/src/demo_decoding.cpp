@@ -6,7 +6,7 @@
 #include <string.h>
 
 #include "demo_decoding.h"
-
+#include "demo_log.h"
 
 namespace DEMO
 {
@@ -21,7 +21,7 @@ void saveH26X(AVStream *av, AVPacket *pkt)
     } else if (AV_CODEC_ID_HEVC == av->codecpar->codec_id) {
         filename = std::string("raw.h265");
     } else {
-        printf("unknow video codec_id:%d .\n", av->codecpar->codec_id);
+        DemoLog(LOG_LEVEL_ERROR, "unknow video codec_id:%d .\n", av->codecpar->codec_id);
         return;
     }
 
@@ -30,7 +30,7 @@ void saveH26X(AVStream *av, AVPacket *pkt)
         fwrite(pkt->data, 1, pkt->size, video_dst_file);
         fclose(video_dst_file);
     } else {
-        printf("fopen h26X fail.\n");
+        DemoLog(LOG_LEVEL_ERROR, "fopen h26X fail.\n");
     }
     
     return;
@@ -40,7 +40,7 @@ void saveYuv(AVFrame *frame)
 {
     FILE *f = fopen("raw.yuv", "ab+");
     if (NULL == f) {
-        printf("fopen yuv fail.\n");
+        DemoLog(LOG_LEVEL_ERROR, "fopen yuv fail.\n");
         return;
     }
 
@@ -166,7 +166,7 @@ DecodeObj::~DecodeObj()
     if (m_stop != true) {
         m_stop = true;
         if (m_decodingThr.get() != nullptr) {
-            printf("stop decodingThread.\n");
+            DemoLog(LOG_LEVEL_INFO, "stop decodingThread.\n");
             m_decodingThr->join();
         }
     }
@@ -175,7 +175,7 @@ DecodeObj::~DecodeObj()
     
     uninitDemuxing();
 
-    printf("~DecodeObj suc.\n");
+    DemoLog(LOG_LEVEL_INFO, "~DecodeObj suc.\n");
 }
 
 int DecodeObj::init()
@@ -184,20 +184,20 @@ int DecodeObj::init()
     
     ret = initDemuxing(m_url.c_str());
     if (ret != 0) {
-        printf("initDemuxing fail.\n");
+        DemoLog(LOG_LEVEL_ERROR, "initDemuxing fail.\n");
         return -1;
     }
     
     ret = initDecoding();
     if (ret != 0) {
-        printf("initDecoding fail.\n");
+        DemoLog(LOG_LEVEL_ERROR, "initDecoding fail.\n");
         return -1;
     }
 
     try {
         m_decodingThr = std::make_shared<std::thread>([this]() { decodingThread(); });
     } catch(...) {
-        printf("create decoding Thread failed.\n");
+        DemoLog(LOG_LEVEL_ERROR, "create decoding Thread failed.\n");
         return -1;
     }
 
@@ -206,23 +206,22 @@ int DecodeObj::init()
 
 void DecodeObj::decodingThread() 
 {    
-    printf("enter decodingThread.\n");
+    DemoLog(LOG_LEVEL_INFO, "enter decodingThread.\n");
 
     while (!m_stop) {
 
         int ret = av_read_frame(m_pFormatCtx, m_pPkt) >= 0;
         if (ret < 0) {
-            printf("av_read_frame fail:%d.\n", ret);
+            DemoLog(LOG_LEVEL_ERROR, "av_read_frame fail:%d.\n", ret);
             break;
         }
-        printf("stream_index:%d, data:%p, size:%d, dts:%ld, duration:%ld, pos:%ld.\n", 
+        DemoLog(LOG_LEVEL_INFO, "stream_index:%d, data:%p, size:%d, dts:%ld, duration:%ld, pos:%ld.\n", 
                 m_pPkt->stream_index, m_pPkt->data, m_pPkt->size, m_pPkt->dts, m_pPkt->duration, m_pPkt->pos);
 
         //视频帧数据        
         if (m_pPkt->stream_index == m_videoStreamIdx) {
 
             if (m_pPkt->size) {
-                printf("pkt->size:%d.\n", m_pPkt->size);
                 decoding(m_pCodecCtx, m_pPkt, m_pFrame);
             }
         }
@@ -234,7 +233,7 @@ void DecodeObj::decodingThread()
         
     }
         
-    printf("exit decodingThread.\n");
+    DemoLog(LOG_LEVEL_INFO, "exit decodingThread.\n");
     return;
 }
 
@@ -244,36 +243,34 @@ int DecodeObj::decoding(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame)
     int ret;
 
     //调试保存视频帧
-    saveH26X(m_pVideoStream, pkt);
+    //saveH26X(m_pVideoStream, pkt);
 
     ret = avcodec_send_packet(dec_ctx, pkt);
     if (ret < 0) {
-        printf("Error sending a packet for decoding\n");
+        DemoLog(LOG_LEVEL_ERROR, "Error sending a packet for decoding\n");
         return -1;
     }
 
     while (ret >= 0) {
         ret = avcodec_receive_frame(dec_ctx, frame);
         if (ret == AVERROR(EAGAIN)) {
-            printf("during decoding, EAGAIN:%d.\n", ret);
+            DemoLog(LOG_LEVEL_WARN, "during decoding, EAGAIN:%d.\n", ret);
             return ret;
         } else if (ret == AVERROR_EOF) {
-            printf("during decoding, AVERROR_EOF:%d.\n", ret);
+            DemoLog(LOG_LEVEL_WARN, "during decoding, AVERROR_EOF:%d.\n", ret);
             return ret;
         } else if (ret < 0) {
-            printf("during decoding, unknow Error:%d.\n", ret);
+            DemoLog(LOG_LEVEL_ERROR, "during decoding, unknow Error:%d.\n", ret);
             return ret;
         }
-        //printf("frame %3d\n", dec_ctx->frame_number);
-        //fflush(stdout);
 
         //调试保存YUV
-        saveYuv(frame);
+        //saveYuv(frame);
 
         //yuv -> rgb 
         AV_FRAME_DATA_PTR pData = yuv2rgb(dec_ctx->pix_fmt, frame);
         AvDataFormat* pInfo = pData->getPtr();
-        printf("## W:%d x H:%d, len:%d.\n", pInfo->vf.width, pInfo->vf.height, pInfo->frameLen);
+        DemoLog(LOG_LEVEL_DEBUG, "## W:%d x H:%d, len:%d.\n", pInfo->vf.width, pInfo->vf.height, pInfo->frameLen);
 
         //write yuv to queue
         m_pDateQue->putData(pData);
@@ -290,34 +287,34 @@ int DecodeObj::initDemuxing(const char *src_filename)
 
     //打开输入文件，并分配 AVFormatContext
     if (avformat_open_input(&m_pFormatCtx, src_filename, NULL, NULL) < 0) {
-        printf("Could not open source file %s\n", src_filename);
+        DemoLog(LOG_LEVEL_ERROR, "Could not open source file %s\n", src_filename);
         return -1;
     }
 
     //检索获取流信息
     if (avformat_find_stream_info(m_pFormatCtx, NULL) < 0) {
-        printf("Could not find stream information\n");
+        DemoLog(LOG_LEVEL_ERROR, "Could not find stream information\n");
         return -1;
     }
 
     //在文件中找到“最佳”流，即最匹配的流。非负数表示成功，返回此流id。
     ret = av_find_best_stream(m_pFormatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
     if (ret < 0) {
-        printf("Could not find %s stream in input file '%s'\n",
+        DemoLog(LOG_LEVEL_ERROR, "Could not find %s stream in input file '%s'\n",
                 av_get_media_type_string(AVMEDIA_TYPE_VIDEO), src_filename);
         return -1;
     }
     m_videoStreamIdx = ret;
-    printf("video_stream_idx:%d.\n", m_videoStreamIdx);
+    DemoLog(LOG_LEVEL_INFO, "video_stream_idx:%d.\n", m_videoStreamIdx);
     
     ret = av_find_best_stream(m_pFormatCtx, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
     if (ret < 0) {
-        printf("Could not find %s stream in input file '%s'\n",
+        DemoLog(LOG_LEVEL_ERROR, "Could not find %s stream in input file '%s'\n",
                 av_get_media_type_string(AVMEDIA_TYPE_AUDIO), src_filename);
         return -1;
     }
     m_audioStreamIdx = ret;
-    printf("audio_stream_idx:%d.\n", m_audioStreamIdx);
+    DemoLog(LOG_LEVEL_INFO, "audio_stream_idx:%d.\n", m_audioStreamIdx);
 
     //打印有关媒体格式的详细信息，例如持续时间，比特率，流，容器，程序，元数据，辅助数据，编解码器和时基等。
     av_dump_format(m_pFormatCtx, 0, src_filename, 0);
@@ -326,23 +323,23 @@ int DecodeObj::initDemuxing(const char *src_filename)
     m_pVideoStream = m_pFormatCtx->streams[m_videoStreamIdx];
     m_pAudioStream = m_pFormatCtx->streams[m_audioStreamIdx];
     if (!m_pAudioStream && !m_pVideoStream) {
-        printf("Could not find audio or video stream in the input, aborting\n");
+        DemoLog(LOG_LEVEL_ERROR, "Could not find audio or video stream in the input, aborting\n");
         return -1;
     }
-    if (m_pVideoStream) printf("Demuxing video from file '%s' \n", src_filename);
-    if (m_pAudioStream) printf("Demuxing audio from file '%s' \n", src_filename);
+    if (m_pVideoStream) DemoLog(LOG_LEVEL_INFO, "Demuxing video from file '%s' \n", src_filename);
+    if (m_pAudioStream) DemoLog(LOG_LEVEL_INFO, "Demuxing audio from file '%s' \n", src_filename);
 
     // AVPacket 已压缩的数据
     m_pPkt = av_packet_alloc();
     if (!m_pPkt) {
-        printf("av_packet_alloc fail.\n");
+        DemoLog(LOG_LEVEL_ERROR, "av_packet_alloc fail.\n");
         return -1;
     }
 
     // AVFrame 未压缩的数据
     m_pFrame = av_frame_alloc();
     if (!m_pFrame) {
-        printf("av_frame_alloc fail.\n");
+        DemoLog(LOG_LEVEL_ERROR, "av_frame_alloc fail.\n");
         return -1;
     }
 
