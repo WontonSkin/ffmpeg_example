@@ -11,8 +11,9 @@
 #include "demo_rendering.h"
 #include "demo_log.h"
 
-enum color_format { YUV420_10BE, YUV420_10LE, YUV444, YUV422, YUV420, UYVY, YUYV, YYY, PACKED_YUV444, NV12, NV21, RGB32, RGB24, RGB16 };
-#define clip(var) ((var>=255)?255:(var<=0)?0:var)
+#include "Poco/Clock.h"
+using Poco::Clock;
+
 
 
 namespace DEMO
@@ -29,7 +30,7 @@ float mixValue = 0.2f;
 // ---------------------------------------------------------------------------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    std::cout << "enter framebuffer_size_callback." << std::endl;
+    DemoLog(LOG_LEVEL_INFO,  "enter framebuffer_size_callback.\n");
     
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
@@ -61,7 +62,7 @@ int doGenerateMipmap(int texture1, int width, int height, unsigned char *data)
 {
 
     if ((0 == width) || (0 == height) || (NULL == data)) {
-        std::cout << "illegal parameter" << std::endl;
+        DemoLog(LOG_LEVEL_ERROR, "illegal parameter.\n");
         return -1;
     }
 
@@ -101,7 +102,7 @@ int RenderObj::doRendering()
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        DemoLog(LOG_LEVEL_ERROR, "Failed to create GLFW window.");
         glfwTerminate();
         return -1;
     }
@@ -112,7 +113,7 @@ int RenderObj::doRendering()
     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+        DemoLog(LOG_LEVEL_ERROR, "Failed to initialize GLAD.");
         return -1;
     }
 
@@ -187,7 +188,7 @@ int RenderObj::doRendering()
     }
     else
     {
-        std::cout << "Failed to load texture" << std::endl;
+        DemoLog(LOG_LEVEL_ERROR, "Failed to load texture.");
     }
     stbi_image_free(data);
 
@@ -200,6 +201,11 @@ int RenderObj::doRendering()
     ourShader.setInt("texture1", 0);
 
     int cnt = 0;
+
+    Clock nowClock;
+    Clock lastClock(0);
+    long long ClockDiff = 0;
+    long long uSleepTime = 0;
     
     // render loop
     // -----------
@@ -212,13 +218,12 @@ int RenderObj::doRendering()
         
         //查看帧队列是否有数据，有则渲染
         if (m_pDateQue->bEmptyQueue()) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(40));
+            std::this_thread::sleep_for(std::chrono::milliseconds(20));
             continue;
         }
-        printf("<==>.......\n");
         AV_FRAME_DATA_PTR pData = m_pDateQue->getData();
         if (pData.get() == NULL) {
-            printf("some unknow err.\n");
+            DemoLog(LOG_LEVEL_ERROR, "some unknow err.\n");
             continue;
         }
         AvDataFormat *pInfo = pData->getPtr();
@@ -227,8 +232,19 @@ int RenderObj::doRendering()
         //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, av.vf.width, av.vf.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData->getData());
         //glGenerateMipmap(GL_TEXTURE_2D);
         //std::this_thread::sleep_for(std::chrono::milliseconds(40));
-        printf("<==> W:%d x H:%d, len:%d.\n", pInfo->vf.width, pInfo->vf.height, pInfo->frameLen);
-        
+        DemoLog(LOG_LEVEL_INFO, "<==> WH:%d x %d, len:%d.\n", pInfo->vf.width, pInfo->vf.height, pInfo->vf.duration, pInfo->vf.time_base, pInfo->frameLen);
+
+        nowClock.update();
+        if (0 == lastClock.microseconds()) {lastClock = nowClock;}
+        ClockDiff = nowClock - lastClock;
+        uSleepTime = 40000 - ClockDiff;    //todo 精度，是否帧率25
+        if (uSleepTime > 0) {
+            if (uSleepTime > 1000000) {
+                DemoLog(LOG_LEVEL_ERROR, "uSleepTime:%lld is too big, force to 40ms.\n", uSleepTime);
+                uSleepTime = 40000;
+            }
+            std::this_thread::sleep_for(std::chrono::microseconds(uSleepTime));
+        }
 
         // render
         // ------
@@ -281,12 +297,12 @@ RenderObj::~RenderObj()
     if (m_stop != true) {
         m_stop = true;
         if (m_renderingThr.get() != nullptr) {
-            std::cout << "stop renderingThread.\n";
+            DemoLog(LOG_LEVEL_INFO, "stop renderingThread.\n");
             m_renderingThr->join();
         }
     }
 
-    std::cout << "~RenderObj suc.\n";
+    DemoLog(LOG_LEVEL_INFO, "~RenderObj suc.\n");
 }
 
 int RenderObj::init()
@@ -295,7 +311,7 @@ int RenderObj::init()
     try {
         m_renderingThr = std::make_shared<std::thread>([this]() { renderingThread(); });
     } catch (...) {
-        std::cout << "create AvConsumer Thread failed.\n";
+        DemoLog(LOG_LEVEL_ERROR, "create AvConsumer Thread failed.\n");
         return -1;
     }
 
@@ -304,7 +320,7 @@ int RenderObj::init()
 
 void RenderObj::renderingThread() 
 {
-    std::cout << "enter renderingThread.\n";
+    DemoLog(LOG_LEVEL_INFO, "enter renderingThread.\n");
     
     // render loop
     // -----------
@@ -313,7 +329,7 @@ void RenderObj::renderingThread()
         doRendering();
     }
 
-    std::cout << "exit renderingThread.\n";
+    DemoLog(LOG_LEVEL_INFO, "exit renderingThread.\n");
 }
 
 }

@@ -18,16 +18,16 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\demo__avDate.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\demo_decoding.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\demo_rendering.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\demo__log.cpp">
+    <ClCompile Include="src\demo_avDate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo_log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

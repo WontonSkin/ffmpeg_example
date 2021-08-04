@@ -86,11 +86,7 @@ AV_FRAME_DATA_PTR yuv2rgb(enum AVPixelFormat pix_fmt, AVFrame *frame)
     //B= Y +((455 * (U - 128))>>8);
 
     //padding需要跳过，frame->width为实际宽度，frame->linesize[0]为跨度
-    //padding需要跳过，padding = frame->linesize[0] - frame->width
-
-    //printf("pix_fmt is :%d.\n", pix_fmt);  // AV_PIX_FMT_YUV420P
-
-    
+    //padding需要跳过，padding = frame->linesize[0] - frame->width    
 
     int j, i;
     int c, d, e;
@@ -210,17 +206,20 @@ void DecodeObj::decodingThread()
 
     while (!m_stop) {
 
-        int ret = av_read_frame(m_pFormatCtx, m_pPkt) >= 0;
+        int ret = av_read_frame(m_pFormatCtx, m_pPkt) >= 0;  //todo h264->h265自动切换
         if (ret < 0) {
             DemoLog(LOG_LEVEL_ERROR, "av_read_frame fail:%d.\n", ret);
             break;
         }
-        DemoLog(LOG_LEVEL_INFO, "stream_index:%d, data:%p, size:%d, dts:%ld, duration:%ld, pos:%ld.\n", 
-                m_pPkt->stream_index, m_pPkt->data, m_pPkt->size, m_pPkt->dts, m_pPkt->duration, m_pPkt->pos);
+        //DemoLog(LOG_LEVEL_INFO, "stream_index:%d, data:%p, size:%d, dts:%ld, duration:%ld, pos:%ld.\n", 
+        //        m_pPkt->stream_index, m_pPkt->data, m_pPkt->size, m_pPkt->dts, m_pPkt->duration, m_pPkt->pos);
 
         //视频帧数据        
         if (m_pPkt->stream_index == m_videoStreamIdx) {
 
+            DemoLog(LOG_LEVEL_INFO, "V_data:%p, size:%d, dts:%ld, duration:%ld, %d/%d.\n", 
+                m_pPkt->data, m_pPkt->size, m_pPkt->dts, m_pPkt->duration, m_pVideoStream->time_base.num, m_pVideoStream->time_base.den);
+            
             if (m_pPkt->size) {
                 decoding(m_pCodecCtx, m_pPkt, m_pFrame);
             }
@@ -228,6 +227,9 @@ void DecodeObj::decodingThread()
 
         //音频帧数据
         if (m_pPkt->stream_index == m_audioStreamIdx) {
+            //DemoLog(LOG_LEVEL_INFO, "A_stream_id:%d, data:%p, size:%d, dts:%ld, duration:%ld, pos:%ld.\n", 
+            //    m_pPkt->stream_index, m_pPkt->data, m_pPkt->size, m_pPkt->dts, m_pPkt->duration, m_pPkt->pos);
+
             //fwrite(pkt.data, 1, pkt.size, audio_dst_file);
         }
         
@@ -254,7 +256,7 @@ int DecodeObj::decoding(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame)
     while (ret >= 0) {
         ret = avcodec_receive_frame(dec_ctx, frame);
         if (ret == AVERROR(EAGAIN)) {
-            DemoLog(LOG_LEVEL_WARN, "during decoding, EAGAIN:%d.\n", ret);
+            //DemoLog(LOG_LEVEL_INFO, "during decoding, EAGAIN:%d.\n", ret);
             return ret;
         } else if (ret == AVERROR_EOF) {
             DemoLog(LOG_LEVEL_WARN, "during decoding, AVERROR_EOF:%d.\n", ret);
@@ -268,14 +270,20 @@ int DecodeObj::decoding(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame)
         //saveYuv(frame);
 
         //yuv -> rgb 
-        AV_FRAME_DATA_PTR pData = yuv2rgb(dec_ctx->pix_fmt, frame);
+        AV_FRAME_DATA_PTR pData = yuv2rgb(dec_ctx->pix_fmt, frame);  //todo 是否opengl直接渲染yuv
         AvDataFormat* pInfo = pData->getPtr();
-        DemoLog(LOG_LEVEL_DEBUG, "## W:%d x H:%d, len:%d.\n", pInfo->vf.width, pInfo->vf.height, pInfo->frameLen);
+        pInfo->vf.duration = pkt->duration;
+        pInfo->vf.time_base = m_pVideoStream->time_base.den;
+        //DemoLog(LOG_LEVEL_DEBUG, "## W:%d x H:%d, len:%d.\n", pInfo->vf.width, pInfo->vf.height, pInfo->frameLen);
 
         //write yuv to queue
-        m_pDateQue->putData(pData);
+        if (m_pDateQue->getQueueSize() > 100) {
+            DemoLog(LOG_LEVEL_ERROR, "QueueSize:%d is over, drop it.\n", m_pDateQue->getQueueSize());
+        } else {
+            m_pDateQue->putData(pData);
+        }
         //std::this_thread::sleep_for(std::chrono::seconds(1));
-        std::this_thread::sleep_for(std::chrono::milliseconds(40));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(40));
     }
 
     return 0;

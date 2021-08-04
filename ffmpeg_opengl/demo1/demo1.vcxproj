@@ -135,10 +135,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\demo_avDate.cpp" />
     <ClCompile Include="src\demo_decoding.cpp" />
+    <ClCompile Include="src\demo_log.cpp" />
     <ClCompile Include="src\demo_rendering.cpp" />
-    <ClCompile Include="src\demo__avDate.cpp" />
-    <ClCompile Include="src\demo__log.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\demo_avDate.h" />

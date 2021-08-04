@@ -32,6 +32,8 @@ typedef struct{
     unsigned int width;
     unsigned int height;
     unsigned short framerate; 
+    int64_t duration;  //相对time_base而言
+    int64_t time_base;
 }VideoframeInfo;
 
 //音频帧信息

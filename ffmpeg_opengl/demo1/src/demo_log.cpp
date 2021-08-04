@@ -50,8 +50,17 @@ void initlog()
 std::ofstream ofs;
 
 void openLogFile()
-{
-    ofs.open ("test.log", std::ofstream::out | std::ofstream::app);
+{    
+    ofs.open ("demoLog.txt", std::ofstream::out | std::ofstream::app);
+    
+    long pos = ofs.tellp();
+    if (pos > 100 * 1024 * 1024) {
+        std::cout << "logfile is too big, delete it, then reOpen it." << pos << std::endl;
+        ofs.close();
+        ofs.open ("demoLog.txt", std::ofstream::out | std::ios::trunc);
+    }
+    
+    ofs << "===================> open LogFile <===================";
 }
 
 void closeLogfile()

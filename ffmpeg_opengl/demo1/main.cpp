@@ -16,7 +16,8 @@ int main()
     DEMO::openLogFile();
     
     int ret = 0;
-    std::string url("resources/demo.ts");
+    //std::string url("resources/demo.ts");
+    std::string url("srt://192.168.1.51:4201");
 
     //清除残留文件
     DeleteFile("raw.h264");  //include Windows.h
@@ -48,6 +49,7 @@ int main()
 
     //wait do stuff...
     while (1) {
+        //std::this_thread::sleep_for(std::chrono::microseconds(10));
         //std::this_thread::sleep_for(std::chrono::milliseconds(10));
         std::this_thread::sleep_for(std::chrono::seconds(10));
     }
