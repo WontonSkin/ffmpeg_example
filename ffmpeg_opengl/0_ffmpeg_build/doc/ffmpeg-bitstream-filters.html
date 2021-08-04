@@ -373,12 +373,6 @@ stream, and in many cases represents the field rate of the stream
 that the framerate is exactly half the tick rate, but the exact
 meaning is dependent on interlacing and the picture structure (see
 H.264 section E.2.1 and table E-6).
-</p></dd>
-<dt><samp>zero_new_constraint_set_flags</samp></dt>
-<dd><p>Zero constraint_set4_flag and constraint_set5_flag in the SPS. These
-bits were reserved in a previous version of the H.264 spec, and thus
-some hardware decoders require these to be zero. The result of zeroing
-this is still a valid bitstream.
 </p>
 </dd>
 <dt><samp>crop_left</samp></dt>
@@ -926,10 +920,6 @@ for the current packet
 </dd>
 <dt><samp>SR</samp></dt>
 <dd><p>The sample rate of stream packet belongs.
-</p>
-</dd>
-<dt><samp>NOPTS</samp></dt>
-<dd><p>The AV_NOPTS_VALUE constant.
 </p></dd>
 </dl>
 

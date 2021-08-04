@@ -506,14 +506,6 @@ ffmpeg -cpuflags 0 ...
 </dl>
 
 </dd>
-<dt><samp>-cpucount <var>count</var> (<em>global</em>)</samp></dt>
-<dd><p>Override detection of CPU count. This option is intended
-for testing. Do not use it unless you know what you&rsquo;re doing.
-</p><div class="example">
-<pre class="example">ffmpeg -cpucount 2
-</pre></div>
-
-</dd>
 <dt><samp>-max_alloc <var>bytes</var></samp></dt>
 <dd><p>Set the maximum size limit for allocating a block on the heap by ffmpeg&rsquo;s
 family of malloc functions. Exercise <strong>extreme caution</strong> when using
@@ -868,13 +860,6 @@ equivalent of setting both <samp>-show_program_version</samp> and
 </p>
 <p>Pixel format information for each format is printed within a section
 with name &quot;PIXEL_FORMAT&quot;.
-</p>
-</dd>
-<dt><samp>-show_optional_fields <var>value</var></samp></dt>
-<dd><p>Some writers viz. JSON and XML, omit the printing of fields with invalid or non-applicable values,
-while other writers always print them. This option enables one to control this behaviour.
-Valid values are <code>always</code>/<code>1</code>, <code>never</code>/<code>0</code> and <code>auto</code>/<code>-1</code>.
-Default is <var>auto</var>.
 </p>
 </dd>
 <dt><samp>-bitexact</samp></dt>
